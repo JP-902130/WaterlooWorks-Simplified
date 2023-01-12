@@ -97,17 +97,33 @@ def test():
         "xpath", "/html/body/main/div[2]/div/div/div/div[2]/div/div/div/div/div[3]/div[4]/div/ul/li[" + str(len(elements)-1) + "]/a")
 
     jobIDs = []
+    jobTitles = []
     for i in range(pages):
         newJobIDs = driver.find_elements(
             "xpath", "/html/body/main/div[2]/div/div/div/div[2]/div/div/div/div/div[3]/div[3]/table/tbody/tr/td[3]")
         for each in newJobIDs:
             jobIDs.append(each.text)
+
+        newJobTitles = driver.find_elements(
+            "xpath", "/html/body/main/div[2]/div/div/div/div[2]/div/div/div/div/div[3]/div[3]/table/tbody/tr/td[4]")
+
+        for each in newJobTitles:
+            jobTitles.append(each.text)
+
         flipButton.click()
         time.sleep(2)
         flipButton = driver.find_element(
             "xpath", "/html/body/main/div[2]/div/div/div/div[2]/div/div/div/div/div[3]/div[4]/div/ul/li[" + str(len(elements)-1) + "]/a")
 
+    for i in range(len(jobTitles)):
+        jobTitles[i] = jobTitles[i].replace("NEW ", "")
     print(len(jobIDs))
+    dict1 = {
+        'IDs': jobIDs,
+        'Titles': jobTitles
+    }
+    df = pd.DataFrame(dict1)
+    df.to_excel('Jobs.xlsx', sheet_name='Jobs')
 
 
 test()
