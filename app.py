@@ -98,6 +98,9 @@ def test():
 
     jobIDs = []
     jobTitles = []
+    jobOpenings = []
+    jobApplicants = []
+    # /html/body/main/div[2]/div/div/div/div[2]/div/div/div/div/div[3]/div[3]/table/tbody/tr/td[11]
     for i in range(pages):
         newJobIDs = driver.find_elements(
             "xpath", "/html/body/main/div[2]/div/div/div/div[2]/div/div/div/div/div[3]/div[3]/table/tbody/tr/td[3]")
@@ -106,9 +109,18 @@ def test():
 
         newJobTitles = driver.find_elements(
             "xpath", "/html/body/main/div[2]/div/div/div/div[2]/div/div/div/div/div[3]/div[3]/table/tbody/tr/td[4]")
-
         for each in newJobTitles:
             jobTitles.append(each.text)
+
+        newJobOpenings = driver.find_elements(
+            "xpath", "/html/body/main/div[2]/div/div/div/div[2]/div/div/div/div/div[3]/div[3]/table/tbody/tr/td[7]")
+        for each in newJobOpenings:
+            jobOpenings.append(each.text)
+
+        newJobApplicants = driver.find_elements(
+            "xpath", "/html/body/main/div[2]/div/div/div/div[2]/div/div/div/div/div[3]/div[3]/table/tbody/tr/td[11]")
+        for each in newJobApplicants:
+            jobApplicants.append(each.text)
 
         flipButton.click()
         time.sleep(2)
@@ -117,12 +129,15 @@ def test():
 
     for i in range(len(jobTitles)):
         jobTitles[i] = jobTitles[i].replace("NEW ", "")
-    print(len(jobIDs))
+
     dict1 = {
         'IDs': jobIDs,
-        'Titles': jobTitles
+        'Titles': jobTitles,
+        'Openings': jobOpenings,
+        'Applicants': jobApplicants
     }
     df = pd.DataFrame(dict1)
+    df["Competitive Index"] = df["Applicants"] / df["Openings"]
     df.to_excel('Jobs.xlsx', sheet_name='Jobs')
 
 
