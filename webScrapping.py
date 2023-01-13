@@ -2,7 +2,8 @@ from selenium import webdriver
 import pandas as pd
 from IPython.display import display
 import time
-
+import os
+from dotenv import load_dotenv
 from selenium.webdriver.support.expected_conditions import staleness_of
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -13,6 +14,8 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 chrome_options = Options()
 chrome_options.add_experimental_option("detach", True)
+
+load_dotenv()
 
 
 def scrolToBottom(driver):
@@ -60,7 +63,7 @@ def scrapDataFromShortListAndStoreInExcel():
 
     element = driver.find_element(
         "xpath", "/html/body/div[2]/div[2]/div[1]/div[2]/div/div/form/div[2]/div[1]/input")
-    element.send_keys("j75peng@uwaterloo.ca")
+    element.send_keys(os.getenv('USERNAME'))
 
     element = driver.find_element(
         "xpath", "/html/body/div[2]/div[2]/div[1]/div[2]/div/div/form/div[2]/div[4]/span[2]")
@@ -68,7 +71,7 @@ def scrapDataFromShortListAndStoreInExcel():
 
     element = driver.find_element(
         "xpath", "/html/body/div[2]/div[2]/div[1]/div[2]/div[2]/div/form/div[2]/div[2]/input")
-    element.send_keys("Pjc031209!")
+    element.send_keys(os.getenv('PASSWORD'))
 
     element = driver.find_element(
         "xpath", "/html/body/div[2]/div[2]/div[1]/div[2]/div[2]/div/form/div[2]/div[4]/span[1]")
