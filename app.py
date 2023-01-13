@@ -115,12 +115,12 @@ def test():
         newJobOpenings = driver.find_elements(
             "xpath", "/html/body/main/div[2]/div/div/div/div[2]/div/div/div/div/div[3]/div[3]/table/tbody/tr/td[7]")
         for each in newJobOpenings:
-            jobOpenings.append(each.text)
+            jobOpenings.append(int(each.text))
 
         newJobApplicants = driver.find_elements(
             "xpath", "/html/body/main/div[2]/div/div/div/div[2]/div/div/div/div/div[3]/div[3]/table/tbody/tr/td[11]")
         for each in newJobApplicants:
-            jobApplicants.append(each.text)
+            jobApplicants.append(int(each.text))
 
         flipButton.click()
         time.sleep(2)
