@@ -46,7 +46,7 @@ def getElementByXPath(driver, path):
     return element
 
 
-def test():
+def scrapDataFromShortListAndStoreInExcel():
     driver = webdriver.Chrome(chrome_options=chrome_options)
     driver.get(
         "https://waterlooworks.uwaterloo.ca/myAccount/co-op/coop-postings.htm")
@@ -100,6 +100,7 @@ def test():
     jobTitles = []
     jobOpenings = []
     jobApplicants = []
+    jobCompanies = []
     # /html/body/main/div[2]/div/div/div/div[2]/div/div/div/div/div[3]/div[3]/table/tbody/tr/td[11]
     for i in range(pages):
         newJobIDs = driver.find_elements(
@@ -122,6 +123,15 @@ def test():
         for each in newJobApplicants:
             jobApplicants.append(int(each.text))
 
+        newJobCompanies = driver.find_elements(
+            "xpath", "/html/body/main/div[2]/div/div/div/div[2]/div/div/div/div/div[3]/div[3]/table/tbody/tr/td[5]/span")
+
+        for each in newJobCompanies:
+            try:
+                jobCompanies.append(each.text)
+            except:
+                continue
+
         flipButton.click()
         time.sleep(2)
         flipButton = driver.find_element(
@@ -134,11 +144,9 @@ def test():
         'IDs': jobIDs,
         'Titles': jobTitles,
         'Openings': jobOpenings,
-        'Applicants': jobApplicants
+        'Applicants': jobApplicants,
+        'Companies': jobCompanies
     }
     df = pd.DataFrame(dict1)
     df["Competitive Index"] = df["Applicants"] / df["Openings"]
     df.to_excel('Jobs.xlsx', sheet_name='Jobs')
-
-
-test()
