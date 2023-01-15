@@ -2,3 +2,4 @@
 .env
 /myRating.xlsx
 /final.xlsx
+/__pycache__
