@@ -5,7 +5,7 @@ import analysis
 def main():
     webScrapping.scrapDataFromShortListAndStoreInExcel()
 
-    # analysis.combine()
+    analysis.combine()
 
 
 main()
