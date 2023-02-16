@@ -4,9 +4,9 @@ import languageProcessing
 
 
 def main():
-    webScrapping.checkEachJobAndCalculateMatchingIndex()
+    # webScrapping.scrapDataFromShortListAndStoreInExcel()
 
-    # analysis.combine()
+    analysis.combineMatchingIndexAndCompetitiveIndex()
 
 
 main()

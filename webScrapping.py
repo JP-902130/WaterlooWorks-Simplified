@@ -144,7 +144,7 @@ def scrapDataFromShortListAndStoreInExcel():
         jobTitles[i] = jobTitles[i].replace("NEW ", "")
 
     dict1 = {
-        'IDs': jobIDs,
+        'JobID': jobIDs,
         'Titles': jobTitles,
         'Openings': jobOpenings,
         'Applicants': jobApplicants,

@@ -2,12 +2,12 @@ import pandas as pd
 import webScrapping
 
 
-def combine():
+def combineMatchingIndexAndCompetitiveIndex():
     dfCompetitveness = pd.read_excel('Jobs.xlsx', sheet_name='Jobs')
-    dfMyRating = pd.read_excel('myRating.xlsx', sheet_name='Jobs')
-    dfMyRating.drop(columns=["Openings", "Applicants",
-                    "Competitive Index"], inplace=True)
-    newdf = pd.merge(dfCompetitveness, dfMyRating, on=[
-                     "IDs", "Titles", "Companies"])
-    newdf.drop(columns=["Unnamed: 0_y", "Unnamed: 0_x"], inplace=True)
+    dfMatching = pd.read_excel('matchIndex.xlsx', sheet_name='Sheet1')
+
+    newdf = pd.merge(dfCompetitveness, dfMatching, on=[
+                     "JobID"])
+    newdf.drop(columns=["Unnamed: 0", "Openings",
+               "Applicants"], inplace=True)
     newdf.to_excel('final.xlsx', sheet_name='Final')

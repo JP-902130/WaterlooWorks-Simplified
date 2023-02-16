@@ -5,11 +5,14 @@ def getMatchingIndex(string):
 
     string = string.lower()
 
-    keyword = ["react", "node", "mongodb", "express", "python", "test", "Java"]
+    keyword = ["react", "node", "mongodb",
+               "express", "rest", "javascript", "api"]
+    banned = ["C#", ".net", "Java", "spring"]
     count = 0
     for each in keyword:
-
         count += string.count(each.lower())
+    for each in banned:
+        count -= string.count(each.lower())
     return count
 
 
