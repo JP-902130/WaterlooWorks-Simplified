@@ -1,11 +1,12 @@
 import webScrapping
 import analysis
+import languageProcessing
 
 
 def main():
-    webScrapping.scrapDataFromShortListAndStoreInExcel()
+    webScrapping.checkEachJobAndCalculateMatchingIndex()
 
-    analysis.combine()
+    # analysis.combine()
 
 
 main()
